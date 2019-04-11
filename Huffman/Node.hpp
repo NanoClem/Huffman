@@ -7,6 +7,11 @@
 
 using namespace std;
 
+
+
+/**
+ * CLASSE NODE
+ */
 class Node {
 
   public:
@@ -22,4 +27,15 @@ class Node {
 
     friend class HuffTree;
 };
+
+
+/**
+* Operateur de comparaison pour les Noeuds
+*/
+struct compare {
+	bool operator()(Node *l, Node *r) {
+		return l->frequence > r->frequence;
+	}
+};
+
 #endif

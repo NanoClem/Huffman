@@ -9,15 +9,6 @@ using namespace std;
 #include "HuffTree.hpp"
 
 
-/**
- * Operateur de comparaison pour les Noeuds
- */
-struct compare {
-	bool operator()(Node *l, Node *r) {
-		return l->frequence > r->frequence;
-	}
-};
-
 
 /**
  * Affiche les paires cle/valeur de la map des frequences.
@@ -72,42 +63,6 @@ void buildFreqMap(map<char,int>& book, string filename)
 }
 
 
-/**
- * Construit l'arbre de Huffman.
- */
-void buildHuffmanTree(HuffTree *ht, map<char,int> fMap) 
-{
-	Node *left, *right, *father;								// noeuds temporaires pour la construction de l'arbre
-	priority_queue<Node*, vector<Node*>, compare> minHeap;		// Tas minimum des noeuds 
-	map<char, int>::iterator it = fMap.begin();				    // Iterateur de la map des frequences
-
-	// INSERTION DES NOEUDS DANS LE TAS
-	while (it != fMap.end()) {
-		minHeap.push(ht->createNode(it->first, it->second));
-		it++;
-	}
-
-	// CONSTRUCTION
-	while (minHeap.size() != 1) {
-
-		// extraction des deux noeuds de frequences les plus basses
-		left = minHeap.top();
-		minHeap.pop();
-		right = minHeap.top();
-		minHeap.pop();
-
-		// Nouveau noeud pere des deux precedents
-		father = ht->createNode('$', left->frequence + right->frequence);
-		father->left  = left;
-		father->right = right;
-		minHeap.push(father);
-	}
-		
-	// RACINE DE L'ARBRE
-	ht->setRoot(minHeap.top());		// Il ne reste que le noeud racine dans la queue apres l'algo
-}
-
-
 
 
 /*========================================================
@@ -124,14 +79,14 @@ int main(int argc, char** argv)
 	// MAP DES FREQUENCES
 	map<char,int> freqMap;
 	buildFreqMap(freqMap, argv[1]);
-	printMap(freqMap);
+	//printMap(freqMap);
 
 	// CONSTRUCTION DE L'ARBRE D'HUFFMAN
 	HuffTree *huffman = new HuffTree();
-	buildHuffmanTree(huffman, freqMap);
+	huffman->buildHuffmanTree(freqMap);
 	huffman->Viewing();
 
 	delete huffman;
-	system("pause");
+	system("PAUSE");
 	return 0;
 }
