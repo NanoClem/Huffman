@@ -1,4 +1,3 @@
-
 #ifndef HUFFMAN_HPP
 #define HUFFMAN_HPP
 
@@ -7,6 +6,7 @@
 #include <iostream>
 #include <stdint.h>
 #include <map>
+#include <vector>
 
 using namespace std;
 #include "Node.hpp"
@@ -29,7 +29,6 @@ public:
 	void buildHuffmanTree();
 	void encode(Node *root, string code);
 	string decode(Node *root, string code);
-	void binStringtoBinary(string message);
 
 	// AFFICHAGE
 	void printCharFrequences() const;
@@ -42,7 +41,7 @@ public:
 	// ECRITURE DES DONNEES
 	void writeDataFreq(string filename);
 	void writeDataHuffman(string filename);
-	void writeEncodedData(string filename, string message);
+	void writeEncodedData(string filename, vector<int> *hexCode);
 
 	// GETTERS & SETTERS
 	string getEncodedData(string message);

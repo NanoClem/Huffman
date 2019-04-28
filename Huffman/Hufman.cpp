@@ -5,6 +5,7 @@
 #include <sstream>
 #include <queue>
 #include <bitset>
+#include <iomanip>
 
 
 /**
@@ -145,68 +146,49 @@ void Huffman::encode(Node *root, string _code)
 	if (!root)
 		return;
 
-	if (root->isLeaf()) {										// Si on est sur une feuille
-		pair<char, string> leaf(root->nodeValue, _code);		// Paire cle/valeur pour insertion
-		huffmanCode.insert(leaf);								// Insertion dans la map des codes Huffman
-		root->code = _code;										// Affectation du code a l'attribut du noeud
+	if (root->isLeaf()) {									// Si on est sur une feuille
+		pair<char, string> leaf(root->nodeValue, _code);	// Paire cle/valeur pour insertion
+		huffmanCode.insert(leaf);							// Insertion dans la map des codes Huffman
+		root->code = _code;									// Affectation du code a l'attribut du noeud
 	}
-	encode(root->left, _code + "0");							// Conversion des codes en binaire
-	encode(root->right, _code + "1");
+	encode(root->left, _code + '0');						// Conversion des codes en binaire
+	encode(root->right, _code + '1');
 }
 
 
 /**
 	Decodage du fichier precedemment compresse par
-	methode de Huffman
+	methode de Huffman.
 */
 string Huffman::decode(Node *root, string code)
 {
 	string ret, tmp = "";
 	Node *current   = root;
 
+	// PARCOURS EN PROFONDEUR DE L'ARBRE
 	for (size_t i = 0; i < code.size(); i++) 
 	{
 		if (code[i] == '0') {
-			tmp += "0";
+			tmp += '0';
 			current = current->left;
 		}
 		else {
-			tmp += "1";
+			tmp += '1';
 			current = current->right;
 		}
 			
 		// FEUILLE TROUVEE
-		if(current->isLeaf())		// autre possibilite pour reconnaitre une feuille
+		if(current->isLeaf())
 		{
 			ret += current->nodeValue;
 			current->code = tmp;
 			pair<char, string> leaf(current->nodeValue, tmp);
 			huffmanCode.insert(leaf);
-			tmp = "";
+			tmp = '\0';
 			current = root;
 		}
 	}
 	return ret + '\0';
-}
-
-
-/**
-	Construit une suite de nombre binaire a partir d'une
-	chaine de caractere encodee (chaine de "0" et de "1").
-	L'algorithme regroupe par 8 les caracteres et les convertis en nombre binaire.
- */
-void Huffman::binStringtoBinary(string message)
-{
-	int size = message.size();				// taille de la chaine
-	string temp;
-	const char *messageByte;
-	//char *messTab = new char(size/8);		// tableau des caracteres du message
-
-	for (size_t i = 0; i <= size_t(size); i += 8)
-	{
-		temp = message.substr(i, 8).c_str();
-		cout << "code : " << temp << endl;
-	}
 }
 
 
@@ -270,7 +252,7 @@ void Huffman::printHuffmanData()
 	map<char, int>::iterator itFreq    = charFreq->begin();
 
 	cout << "DONNEES HUFFMAN" << endl;
-	cout << "CHAR" << "     " << "FREQ" << "      " << "CODE" << endl;
+	cout << "CHAR" << "      " << "FREQ" << "      " << "CODE" << endl;
 	while (itFreq != charFreq->end()) {
 		cout << itFreq->first << "        " << itFreq->second << "        " << itCode->second << endl;
 		itFreq++;
@@ -367,13 +349,14 @@ void Huffman::writeDataHuffman(string filename)
 
 
 /**
-	Ecrit dans un fichier les donnes encodees
+	Ecrit dans un fichier binaire les donnes encodees
  */
-void Huffman::writeEncodedData(string filename, string message)
+void Huffman::writeEncodedData(string filename, vector<int> *hexCode)
 {
-	ofstream file(filename.c_str(), ios::binary | ios::out | ios::trunc );
+	ofstream file(filename.c_str(), ios::binary | ios::out);
+
 	if (file) {
-		file << message;
+		file.write((char*)&hexCode[0], hexCode->size()*sizeof(int));
 		file.close();
 	}
 	else
