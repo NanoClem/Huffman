@@ -82,11 +82,11 @@ void Huffman::buildFreqMap(string filename)
 	ifstream file(filename.c_str(), ios::in);				       // ouverture en mode lecture
 	if (file) {												       // si il n'y a pas d'erreur de flags
 		char c;
-		while (file.good())									       // Tant qu'on est pas à la fin du fichier
+		while (file.good())									       // Tant qu'on est pas ï¿½ la fin du fichier
 		{
 			file.get(c);									       // on lit caractere par caractere
-			pair<char, int> word(c, 1);							   // nouvelle paire clé/valeur (freq initialisee a 1)
-			map<char, int>::iterator search = charFreq->find(c);   // on place un itérateur au caractere (place a la fin s'il n'est pas trouve)
+			pair<char, int> word(c, 1);							   // nouvelle paire clï¿½/valeur (freq initialisee a 1)
+			map<char, int>::iterator search = charFreq->find(c);   // on place un itï¿½rateur au caractere (place a la fin s'il n'est pas trouve)
 
 			if (search == charFreq->end())						   // si on a atteint la fin de map (char non existant)
 				charFreq->insert(word);							   // on insere la nouvelle donnee
@@ -207,7 +207,7 @@ string Huffman::getEncodedData(string message)
 
 
 /**
-	Retourne le nombre d'octets théorique
+	Retourne le nombre d'octets thï¿½orique
 	apres compression de Huffman
  */
 int Huffman::getTheoryNbBytes() const
@@ -223,7 +223,7 @@ int Huffman::getTheoryNbBytes() const
 		nbBytes += itFreq->second * tmp.length();	// calcul du nombre de bits
 	}
 
-	nbBytes /= 8;		// conversion entière en octets
+	nbBytes /= 8;		// conversion entiï¿½re en octets
 	return nbBytes;
 }
 
@@ -367,7 +367,6 @@ void Huffman::writeEncodedData(string filename, vector<unsigned char> *hexCode)
 {
 	ofstream file(filename.c_str(), ios::binary | ios::out | ios::trunc);
 	vector<unsigned char>::iterator it = hexCode->begin();
-	int tmp = 0;
 
 	if (file) {
 		while (it != hexCode->end()) {

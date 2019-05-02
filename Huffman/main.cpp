@@ -17,7 +17,7 @@ using namespace std;
 
 /**
  * Affiche les elements contenus dans la queue en
- * commençant par le plus petit a chaque fois
+ * commenï¿½ant par le plus petit a chaque fois
  */
 template<typename T> void printQueue(T& q)
 {
@@ -144,7 +144,7 @@ vector<unsigned char> *prepareData(string message)
 
 /**
 	Retourne la taille d'un fichier en octets
-	#WARNING : tellg() a parfois un comportement aléatoire
+	#WARNING : tellg() a parfois un comportement alï¿½atoire
 */
 long getRealNbBytes(string filename)
 {
@@ -168,7 +168,7 @@ int main(int argc, char** argv)
 	// VERIFIER LES ARGUMENTS EN ENTREE
 	if (argc != 3) {
 		cout << "ERROR  : missing arguments" << endl
-			 << "please provide the path of the text to encode and the path of the text to decode" << endl;
+			 << "please provide the path of the text to encode and the path of frequences file" << endl;
 		return 1;
 	}
 
@@ -188,8 +188,7 @@ int main(int argc, char** argv)
 			<< "1. Semi-adptative Encoding"				  << endl
 			<< "2. Static Encoding"						  << endl
 			<< "3. Decoding binary file"				  << endl
-			<< "4. Type a word and print its binary code" << endl
-			<< "5. EXIT"								  << endl
+			<< "4. EXIT"								  << endl
 			<< endl <<  ">";
 		cin >> select;
 		cout << endl;
@@ -243,7 +242,7 @@ int main(int argc, char** argv)
 				vector<unsigned char> *data = prepareData(huffman->getEncodedData(content));
 
 				//ECRITURE DES DONNEES ENCODEES
-				huffman->writeDataHuffman(HuffcodeFile);		// ecritures du tableau des fréquences et des codes huffman
+				huffman->writeDataHuffman(HuffcodeFile);		// ecritures du tableau des frï¿½quences et des codes huffman
 				huffman->writeEncodedData(encodedFile, data);	// ecriture des donnees encodees
 
 				//RESULTATS
@@ -294,27 +293,9 @@ int main(int argc, char** argv)
 
 
 			/*======================================================
-						CONVERTIR UNE SAISIE EN BINAIRE 
-			======================================================*/
-			case 4: 
-			{
-				string text;
-				cout << "Type your text to cast : ";
-				cin >> text;
-
-				for (size_t i = 0; i < text.length(); i++)
-					cout << bitset<8>(text.c_str()[i]) << endl;
-
-				cout << endl;
-				repeat = true;
-				break;
-			}
-
-
-			/*======================================================
 									EXIT
 			======================================================*/
-			case 5:
+			case 4:
 				repeat = false;
 				break;
 					
