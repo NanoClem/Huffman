@@ -11,9 +11,9 @@ The program needs 2 arguments to run, in that order :
 For example, with the following text : *This is an example of a Huffman tree*  
 This file should be organised like this :  
 
-18    *number of characters*  
+18      *(number of characters)*  
   7  
-H 1   *character + frequence*  
+H 1     *(character + frequence)*  
 T 1  
 a 4  
 e 5  
