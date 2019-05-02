@@ -8,29 +8,11 @@ The program needs 2 arguments to run, in that order :
 *text to encode* *frequences file*
 
 ## Frequences file
-For example, with the "alice.txt" file frequences should be organised like this :  
-
-72            **number of character which have a frequence**  
-  
- 7218  
-  57800  
-! 898  
-" 226  
-' 3522  
-( 112  
-) 110  
-* 120  
-, 4836  
-- 1338  
-. 1954  
-2 2  
-9 2  
-: 466  
-; 388  
-? 404  
-A 1276  
-B 182  
-C 288  
-D 384  
-*etc...*
+The current "frequences.dat" was made with the "example_text.txt" file.  
+It should be organised like this if you want to decode.  
+**For the line feed case**, the program is made to read it this way :  
+*number of char*  
+*line feed char*  
+*its frequence*  
+*normal behavior*  
 
