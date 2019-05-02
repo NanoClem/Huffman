@@ -11,8 +11,8 @@ The program needs 2 arguments to run, in that order :
 For example, with the "alice.txt" file frequences should be organised like this :  
 
 72            **number of character which have a frequence**  
-              *case of the line feed char*  
- 7218         *its frequence*  
+  
+ 7218  
   57800  
 ! 898  
 " 226  
