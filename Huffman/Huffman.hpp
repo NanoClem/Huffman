@@ -41,11 +41,11 @@ public:
 	// ECRITURE DES DONNEES
 	void writeDataFreq(string filename);
 	void writeDataHuffman(string filename);
-	void writeEncodedData(string filename, vector<int> *hexCode);
+	void writeEncodedData(string filename, vector<unsigned char> *hexCode);
 
 	// GETTERS & SETTERS
 	string getEncodedData(string message);
-	int getNbBytes() const;
+	int getTheoryNbBytes() const;
 	inline Node *Root() const { return root; }
 	inline map<char, int> *getFreqMap() const { return charFreq; }
 	inline map<char, string> getCodeMap() const { return huffmanCode; }
