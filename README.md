@@ -5,7 +5,8 @@ Compile it with : **g++ -Wall Huffman.cpp main.cpp -o (your .exe name)**
 
 ## Run 
 The program needs 2 arguments to run, in that order :  
-*text to encode* *frequences file*
+*text_to_encode* and *frequences_file*  
+Notice that the frequences file could be empty or non existant, because the program would create a new one in that case.  
 
 ## Frequences file
 The current "frequences.dat" was made with the "example_text.txt" file.  
