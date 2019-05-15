@@ -17,7 +17,7 @@ using namespace std;
 
 /**
  * Affiche les elements contenus dans la queue en
- * commen�ant par le plus petit a chaque fois
+ * commencant par le plus petit a chaque fois
  */
 template<typename T> void printQueue(T& q)
 {
@@ -30,8 +30,8 @@ template<typename T> void printQueue(T& q)
 
 
 /**
-	Lecture d'un fichier texte ou binaire
-	Retourne le contenu du fichier en format string
+ * Lecture d'un fichier texte ou binaire
+ * Retourne le contenu du fichier en format string
  */
 string readTextFile(string filename)
 {
@@ -54,8 +54,8 @@ string readTextFile(string filename)
 
 
 /**
-	Lecture d'un fichier binaire octet par octet
-	Retourne le contenu du fichier en format string
+ * Lecture d'un fichier binaire octet par octet
+ * Retourne le contenu du fichier en format string
  */
 vector<unsigned char> *readBinaryFile(string filename)
 {
@@ -78,7 +78,7 @@ vector<unsigned char> *readBinaryFile(string filename)
 
 
 /**
-	Conversion d'une chaine binaire en octet
+ * Conversion d'une chaine binaire en octet
  */
 unsigned char binaryStringToByte(char *code)
 {
@@ -114,10 +114,9 @@ string byteToBinaryString(unsigned char _byte)
 
 
 /**
-	 Prepare les donnes string sous forme hexadecimale
-	 La fonction decoupe le message par paquets de huit et les convertis en octet
-	 Si le decoupage laisse une chaine de moins de huit caracteres, la comble et renseigne
-	 dans "fitOffset" le nombre de bit a combler
+ * La fonction decoupe le message par paquets de huit et les convertis en octet
+ * Si le decoupage laisse une chaine de moins de huit caracteres, la comble et renseigne
+ * dans "fitOffset" le nombre de bit a combler
  */
 vector<unsigned char> *prepareData(string message)
 {
@@ -143,14 +142,14 @@ vector<unsigned char> *prepareData(string message)
 
 
 /**
-	Retourne la taille d'un fichier en octets
-	#WARNING : tellg() a parfois un comportement al�atoire
+ * Retourne la taille d'un fichier en octets
+ * #WARNING : tellg() a parfois un comportement aleatoire pour les fichiers binaires
 */
-long getRealNbBytes(string filename)
+int getRealNbBytes(string filename)
 {
 	ifstream file(filename.c_str(), ios::binary | ios::in);		// ouverture en mode lecture binaire (fonctionne aussi sur les txt)
-	file.seekg(0, ios_base::end);								// on se place a la fin du fichier
-	int ret = file.tellg();										// recuperer la position (taille du fichier)
+	file.seekg(0, ios_base::end);					// on se place a la fin du fichier
+	int ret = file.tellg();						// recuperer la position (taille du fichier)
 
 	file.seekg(0, ios::beg);
 	file.close();
@@ -175,7 +174,7 @@ int main(int argc, char** argv)
 	// VARIABLES
 	Huffman *huffman    = new Huffman();			// objet Huffman
 	string encodedFile  = "encoded_text.bin";		// fichier txt des donnees encodees
-	string freqFile     = argv[2];					// fichier dat du tableau des frequences
+	string freqFile     = argv[2];				// fichier dat du tableau des frequences
 	string HuffcodeFile = "huffcode.dat";			// fichier dat du tableau des codes huffman
 	
 
@@ -201,10 +200,10 @@ int main(int argc, char** argv)
 			case 1: 
 			{
 				// FICHIERS ET MAP DE DONNEES
-				string toEncodeFile = argv[1];					// fichier txt des donnees a encoder
+				string toEncodeFile = argv[1];			// fichier txt des donnees a encoder
 				string content = readTextFile(toEncodeFile);	// contenu non encode du fichier txt des donnees 
-				huffman->buildFreqMap(toEncodeFile);			// construction des frequences des caracteres
-				huffman->buildHuffmanTree();					// construction de l'arbre de Huffman
+				huffman->buildFreqMap(toEncodeFile);		// construction des frequences des caracteres
+				huffman->buildHuffmanTree();			// construction de l'arbre de Huffman
 
 				//ENCODAGE DES DONNEES
 				huffman->encode(huffman->Root(), "");
@@ -215,8 +214,8 @@ int main(int argc, char** argv)
 				cout << "NOMBRE D'OCTETS REEL APRES COMPRESSION : " << getRealNbBytes(encodedFile)  << endl;	// nb octet apres compression 
 
 				//// ECRITURE DES DONNEES ENCODEES
-				huffman->writeDataFreq(freqFile);				// tableau des frequences
-				huffman->writeDataHuffman(HuffcodeFile);		// tableau des codes huffman
+				huffman->writeDataFreq(freqFile);		// tableau des frequences
+				huffman->writeDataHuffman(HuffcodeFile);	// tableau des codes huffman
 				huffman->writeEncodedData(encodedFile, data);	// donnees encodees
 
 				cout << endl;
@@ -232,17 +231,17 @@ int main(int argc, char** argv)
 			case 2:
 			{
 				// FICHIERS ET MAP DE DONNEES
-				string toEncodeFile = argv[1];					// fichier txt des donnees a encoder
+				string toEncodeFile = argv[1];			// fichier txt des donnees a encoder
 				string content = readTextFile(toEncodeFile);	// contenu non encode du fichier txt
-				huffman->readDataFreq(freqFile);				// lecture des frequences depuis le fichier des donnees
-				huffman->buildHuffmanTree();					// construction de l'arbre de Huffman
+				huffman->readDataFreq(freqFile);		// lecture des frequences depuis le fichier des donnees
+				huffman->buildHuffmanTree();			// construction de l'arbre de Huffman
 
 				//ENCODAGE DES DONNEES
 				huffman->encode(huffman->Root(), "");
 				vector<unsigned char> *data = prepareData(huffman->getEncodedData(content));
 
 				//ECRITURE DES DONNEES ENCODEES
-				huffman->writeDataHuffman(HuffcodeFile);		// ecritures du tableau des fr�quences et des codes huffman
+				huffman->writeDataHuffman(HuffcodeFile);	// ecritures du tableau des fr�quences et des codes huffman
 				huffman->writeEncodedData(encodedFile, data);	// ecriture des donnees encodees
 
 				//RESULTATS
@@ -267,12 +266,12 @@ int main(int argc, char** argv)
 				huffman->readDataFreq(freqFile);
 				huffman->buildHuffmanTree();
 
-				vector<unsigned char> *encodedData = readBinaryFile(encodedFile);
+				vector<unsigned char> *encodedData = readBinaryFile(encodedFile);	// contient les octets lus
 				vector<unsigned char>::iterator it = encodedData->begin();
 				string binaryMessage = "";
 
-				while (it != encodedData->end()) {
-					binaryMessage += byteToBinaryString(*it);
+				while (it != encodedData->end()) {			// pour chaque octet
+					binaryMessage += byteToBinaryString(*it);	// on le reconverti en chaine binaire
 					it++;
 				}
 
